@@ -476,11 +476,6 @@ class Yahoo_Messenger_Engine
 	 */
 	private function curl($url, $method = 'get', $header = null, $postdata = null, $timeout = 60)
 	{
-		// debugging aid
-//		echo ">> $method $url\n";
-//		echo "Headers: $header\n";
-//		echo "POST data: $postdata\n";
-
 		$s = curl_init();
 
 		curl_setopt($s,CURLOPT_URL, $url);
@@ -522,9 +517,6 @@ class Yahoo_Messenger_Engine
 		
 		curl_close($s);
 		
-		// debugging aid
-//		echo "<< $html\n";
-
 		return $html;
 	}
 
