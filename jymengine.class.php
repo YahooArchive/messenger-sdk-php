@@ -79,16 +79,6 @@ class JYMEngine
 		return true;
 	}
 	
-	/**
-	 * Sets the request token manually.
-	 * @param string $requestToken
-	 */
-	public function setRequestToken($requestToken) {
-		if (stripos($requestToken, 'RequestToken') !== false)
-			$requestToken = trim(str_replace('RequestToken=', '', $requestToken));
-		$this->_token['request'] = $requestToken;
-	}
-	
 	public function fetch_access_token()
 	{
 		//prepare url
@@ -470,7 +460,15 @@ class JYMEngine
 		return $js['responses'];
 	}
 	
-	
+	/**
+	 * Sets the request token manually.
+	 * @param string $requestToken
+	 */
+	public function setRequestToken($requestToken) {
+		if (stripos($requestToken, 'RequestToken') !== false)
+			$requestToken = trim(str_replace('RequestToken=', '', $requestToken));
+		$this->_token['request'] = $requestToken;
+	}
 	
 	
 	/*
