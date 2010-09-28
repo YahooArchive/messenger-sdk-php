@@ -63,7 +63,7 @@ class JYMEngine
 		$this->_error = null;
 	}
 	
-	public function fetch_request_token()
+	public function fetchRequestToken()
 	{	
 		//prepare url
 		$url = $this::URL_OAUTH_DIRECT;
@@ -79,7 +79,7 @@ class JYMEngine
 		return true;
 	}
 	
-	public function fetch_access_token()
+	public function fetchAccessToken()
 	{
 		//prepare url
 		$url = $this::URL_OAUTH_ACCESS_TOKEN;
@@ -111,7 +111,7 @@ class JYMEngine
 		return true;	
 	}
 	
-	public function fetch_crumb()
+	public function fetchCrumb()
 	{
 		//prepare url
 		$url = $this::URL_YM_SESSION;
@@ -190,7 +190,7 @@ class JYMEngine
 		return true;
 	}
 	
-	public function change_presence($status = '', $state = 0)
+	public function changePresence($status = '', $state = 0)
 	{
 		//prepare url
 		$url = $this::URL_YM_PRESENCE;
@@ -211,7 +211,7 @@ class JYMEngine
 		return true;
 	}
 
-	public function send_message($user, $message)
+	public function sendMessage($user, $message)
 	{
 		//prepare url
 		$url = $this::URL_YM_MESSAGE;
@@ -234,7 +234,7 @@ class JYMEngine
 		return true;
 	}
 	
-	public function fetch_contact_list()
+	public function fetchContactList()
 	{
 		//prepare url
 		$url = $this::URL_YM_CONTACT;
@@ -260,7 +260,7 @@ class JYMEngine
 		return $js['contacts'];
 	}
 	
-	public function add_contact($user, $group = 'Friends', $message = '')
+	public function addContact($user, $group = 'Friends', $message = '')
 	{
 		//prepare url
 		$url = $this::URL_YM_GROUP;
@@ -283,7 +283,7 @@ class JYMEngine
 		return true;
 	}
 
-	public function delete_contact($user, $group = 'Friends')
+	public function deleteContact($user, $group = 'Friends')
 	{
 		//prepare url
 		$url = $this::URL_YM_GROUP;
@@ -305,7 +305,7 @@ class JYMEngine
 		return true;
 	}
 	
-	public function response_contact($user, $accept = true, $message = '')
+	public function responseContact($user, $accept = true, $message = '')
 	{
 		if ($accept)
 		{
@@ -359,7 +359,7 @@ class JYMEngine
 		return true;
 	}
 	
-	public function fetch_notification($seq = 0)
+	public function fetchNotification($seq = 0)
 	{		
 		//prepare url
 		$url = $this::URL_YM_NOTIFICATION;
@@ -393,7 +393,7 @@ class JYMEngine
 		return $js['responses'];
 	}
 	
-	public function fetch_long_notification($seq = 0)
+	public function fetchLongNotification($seq = 0)
 	{		
 		//prepare url
 		$url = $this::URL_YM_NOTIFICATION_LONG;
@@ -524,7 +524,7 @@ class JYMEngine
 		return $html;
 	}
 
-	public function get_error()
+	public function getError()
 	{
 		return $this->_error;
 	}
