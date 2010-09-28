@@ -31,9 +31,9 @@ define('PASSWORD', '');
 define('CONSUMER_KEY', '');
 define('SECRET_KEY', '');
 
-include_once 'jymengine.class.php';
+require_once 'Yahoo/Messenger/Engine.php';
 
-$engine = new JYMEngine(CONSUMER_KEY, SECRET_KEY, USERNAME, PASSWORD);
+$engine = new Yahoo_Messenger_Engine(CONSUMER_KEY, SECRET_KEY, USERNAME, PASSWORD);
 $engine->debug = false;
 
 if ($engine->debug) echo '> Fetching request token'. PHP_EOL;

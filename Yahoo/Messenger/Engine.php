@@ -27,7 +27,7 @@
  *
 */
  
-class JYMEngine
+class Yahoo_Messenger_Engine
 {
 	const URL_OAUTH_DIRECT = 'https://login.yahoo.com/WSLogin/V1/get_auth_token';
 	const URL_OAUTH_ACCESS_TOKEN = 'https://api.login.yahoo.com/oauth/v2/get_token';
