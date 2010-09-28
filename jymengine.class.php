@@ -79,6 +79,16 @@ class JYMEngine
 		return true;
 	}
 	
+	/**
+	 * Sets the request token manually.
+	 * @param string $requestToken
+	 */
+	public function setRequestToken($requestToken) {
+		if (stripos($requestToken, 'RequestToken') !== false)
+			$requestToken = trim(str_replace('RequestToken=', '', $requestToken));
+		$this->_token['request'] = $requestToken;
+	}
+	
 	public function fetch_access_token()
 	{
 		//prepare url
@@ -468,6 +478,10 @@ class JYMEngine
 	 */
 	private function curl($url, $method = 'get', $header = null, $postdata = null, $timeout = 60)
 	{
+		echo ">> $method $url\n";
+		echo "Headers: $header\n";
+		echo "POST data: $postdata\n";
+
 		$s = curl_init();
 
 		curl_setopt($s,CURLOPT_URL, $url);
