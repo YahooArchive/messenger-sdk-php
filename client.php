@@ -26,6 +26,7 @@
  *
 */
 
+declare (ticks = 1);
 define('USERNAME', '');
 define('PASSWORD', '');
 define('CONSUMER_KEY', '');
@@ -33,6 +34,28 @@ define('SECRET_KEY', '');
 
 include_once 'jymengine.class.php';
 
+pcntl_signal(SIGTERM, "sig_handler");
+pcntl_signal(SIGHUP, "sig_handler");
+pcntl_signal(SIGINT, "sig_handler");
+pcntl_signal(SIGQUIT, "sig_handler");
+
+function sig_handler($signo)
+{
+     global $engine;
+     switch ($signo) {
+         case SIGTERM:
+         case SIGHUP:
+         case SIGINT:
+         case SIGQUIT:
+             echo '> Signing off : '. USERNAME. PHP_EOL;
+             if (!$engine->signoff()) die('Signoff failed');
+             exit;
+         default:
+             // handle all other signals
+     }
+}
+
+global $engine;
 $engine = new JYMEngine(CONSUMER_KEY, SECRET_KEY, USERNAME, PASSWORD);
 $engine->debug = false;
 
@@ -117,14 +140,14 @@ while (true)
 							}
 						}
 					}
-					else if ($words[0] == 'omg')
+					else if ($words[0] == 'movies')
 					{
-						if ($engine->debug) echo '> Retrieving OMG news rss'. PHP_EOL;
-						$rss = file_get_contents('http://rss.omg.yahoo.com/latest/news/');
+						if ($engine->debug) echo '> Retrieving Movies news rss'. PHP_EOL;
+						$rss = file_get_contents('http://news.yahoo.com/rss/movies/');
 												
 						if (preg_match_all('|<title>(.*?)</title>|is', $rss, $m))
 						{
-							$out = 'Recent OMG News:'. PHP_EOL;
+							$out = 'Recent Movies News:'. PHP_EOL;
 							for ($i=2; $i<7; $i++)
 							{
 								$out .= str_replace(array('<![CDATA[', ']]>'), array('', ''), $m[1][$i]). PHP_EOL;
@@ -145,7 +168,7 @@ while (true)
 					if ($engine->debug) echo '> Sending reply message '. PHP_EOL;
 					if ($engine->debug) echo '    '. $out. PHP_EOL;	
 					if ($engine->debug) echo '----------'. PHP_EOL;
-					$engine->send_message($val['sender'], json_encode($out));
+                    $engine->send_message($val['sender'], json_encode($out));
 				}
 				
 				else if ($key == 'buddyAuthorize') //incoming contact request
@@ -162,5 +185,6 @@ while (true)
 		}
 	}	
 }
+
 
 ?>
