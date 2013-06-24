@@ -31,16 +31,16 @@ define('PASSWORD', '');
 define('CONSUMER_KEY', '');
 define('SECRET_KEY', '');
 
-include_once 'jymengine.class.php';
+require_once 'Yahoo/Messenger/Engine.php';
 
-$engine = new JYMEngine(CONSUMER_KEY, SECRET_KEY, USERNAME, PASSWORD);
+$engine = new Yahoo_Messenger_Engine(CONSUMER_KEY, SECRET_KEY, USERNAME, PASSWORD);
 $engine->debug = false;
 
 if ($engine->debug) echo '> Fetching request token'. PHP_EOL;
-if (!$engine->fetch_request_token()) die('Fetching request token failed');
+if (!$engine->fetchRequestToken()) die('Fetching request token failed');
 
 if ($engine->debug) echo '> Fetching access token'. PHP_EOL;
-if (!$engine->fetch_access_token()) die('Fetching access token failed');
+if (!$engine->fetchAccessToken()) die('Fetching access token failed');
 
 if ($engine->debug) echo '> Signon as: '. USERNAME. PHP_EOL;
 if (!$engine->signon('I am login from PHP code')) die('Signon failed');
@@ -48,15 +48,15 @@ if (!$engine->signon('I am login from PHP code')) die('Signon failed');
 $seq = -1;
 while (true)
 {
-	$resp = $engine->fetch_long_notification($seq+1);
+	$resp = $engine->fetchLongNotification($seq+1);
 	if (isset($resp))
 	{	
 		if ($resp === false) 
 		{		
-			if ($engine->get_error() != -10)
+			if ($engine->getError() != -10)
 			{
 				if ($engine->debug) echo '> Fetching access token'. PHP_EOL;
-				if (!$engine->fetch_access_token()) die('Fetching access token failed');				
+				if (!$engine->fetchAccessToken()) die('Fetching access token failed');				
 				
 				if ($engine->debug) echo '> Signon as: '. USERNAME. PHP_EOL;
 				if (!$engine->signon(date('H:i:s'))) die('Signon failed');
@@ -133,7 +133,7 @@ while (true)
 					}	
 					else if ($words[0] == 'status')
 					{
-						$engine->change_presence(str_replace('status ', '', strtolower($val['msg'])));
+						$engine->changePresence(str_replace('status ', '', strtolower($val['msg'])));
 						$out = 'My status is changed';
 					}	
 					else
@@ -145,17 +145,17 @@ while (true)
 					if ($engine->debug) echo '> Sending reply message '. PHP_EOL;
 					if ($engine->debug) echo '    '. $out. PHP_EOL;	
 					if ($engine->debug) echo '----------'. PHP_EOL;
-					$engine->send_message($val['sender'], json_encode($out));
+					$engine->sendMessage($val['sender'], json_encode($out));
 				}
 				
 				else if ($key == 'buddyAuthorize') //incoming contact request
 				{
 					if ($engine->debug) echo PHP_EOL. 'Accept buddy request from: '. $val['sender']. PHP_EOL;					
 					if ($engine->debug) echo '----------'. PHP_EOL;	
-					if (!$engine->response_contact($val['sender'], true, 'Welcome to my list'))
+					if (!$engine->responseContact($val['sender'], true, 'Welcome to my list'))
 					{
-						$engine->delete_contact($val['sender']);
-						$engine->response_contact($val['sender'], true, 'Welcome to my list');
+						$engine->deleteContact($val['sender']);
+						$engine->responseContact($val['sender'], true, 'Welcome to my list');
 					}
 				}
 		}
