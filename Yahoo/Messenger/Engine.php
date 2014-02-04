@@ -27,7 +27,7 @@
  *
 */
  
-class JYMEngine
+class Yahoo_Messenger_Engine
 {
 	const URL_OAUTH_DIRECT = 'https://login.yahoo.com/WSLogin/V1/get_auth_token';
 	const URL_OAUTH_ACCESS_TOKEN = 'https://api.login.yahoo.com/oauth/v2/get_token';
@@ -63,10 +63,10 @@ class JYMEngine
 		$this->_error = null;
 	}
 	
-	public function fetch_request_token()
+	public function fetchRequestToken()
 	{	
 		//prepare url
-		$url = $this::URL_OAUTH_DIRECT;
+		$url = self::URL_OAUTH_DIRECT;
 		$url .= '?login='. $this->_config['username'];
 		$url .= '&passwd='. $this->_config['password'];
 		$url .= '&oauth_consumer_key='. $this->_config['consumer_key'];		
@@ -79,10 +79,10 @@ class JYMEngine
 		return true;
 	}
 	
-	public function fetch_access_token()
+	public function fetchAccessToken()
 	{
 		//prepare url
-		$url = $this::URL_OAUTH_ACCESS_TOKEN;
+		$url = self::URL_OAUTH_ACCESS_TOKEN;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26';
@@ -111,10 +111,10 @@ class JYMEngine
 		return true;	
 	}
 	
-	public function fetch_crumb()
+	public function fetchCrumb()
 	{
 		//prepare url
-		$url = $this::URL_YM_SESSION;
+		$url = self::URL_YM_SESSION;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26'. $this->_token['access']['oauth_token_secret'];
@@ -138,7 +138,7 @@ class JYMEngine
 	public function signon($status = '', $state = 0)
 	{
 		//prepare url
-		$url = $this::URL_YM_SESSION;
+		$url = self::URL_YM_SESSION;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26'. $this->_token['access']['oauth_token_secret'];
@@ -173,7 +173,7 @@ class JYMEngine
 	public function signoff()
 	{
 		//prepare url
-		$url = $this::URL_YM_SESSION;
+		$url = self::URL_YM_SESSION;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26'. $this->_token['access']['oauth_token_secret'];
@@ -190,10 +190,10 @@ class JYMEngine
 		return true;
 	}
 	
-	public function change_presence($status = '', $state = 0)
+	public function changePresence($status = '', $state = 0)
 	{
 		//prepare url
-		$url = $this::URL_YM_PRESENCE;
+		$url = self::URL_YM_PRESENCE;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26'. $this->_token['access']['oauth_token_secret'];
@@ -211,10 +211,10 @@ class JYMEngine
 		return true;
 	}
 
-	public function send_message($user, $message)
+	public function sendMessage($user, $message)
 	{
 		//prepare url
-		$url = $this::URL_YM_MESSAGE;
+		$url = self::URL_YM_MESSAGE;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26'. $this->_token['access']['oauth_token_secret'];
@@ -234,10 +234,10 @@ class JYMEngine
 		return true;
 	}
 	
-	public function fetch_contact_list()
+	public function fetchContactList()
 	{
 		//prepare url
-		$url = $this::URL_YM_CONTACT;
+		$url = self::URL_YM_CONTACT;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26'. $this->_token['access']['oauth_token_secret'];
@@ -260,10 +260,10 @@ class JYMEngine
 		return $js['contacts'];
 	}
 	
-	public function add_contact($user, $group = 'Friends', $message = '')
+	public function addContact($user, $group = 'Friends', $message = '')
 	{
 		//prepare url
-		$url = $this::URL_YM_GROUP;
+		$url = self::URL_YM_GROUP;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26'. $this->_token['access']['oauth_token_secret'];
@@ -283,10 +283,10 @@ class JYMEngine
 		return true;
 	}
 
-	public function delete_contact($user, $group = 'Friends')
+	public function deleteContact($user, $group = 'Friends')
 	{
 		//prepare url
-		$url = $this::URL_YM_GROUP;
+		$url = self::URL_YM_GROUP;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26'. $this->_token['access']['oauth_token_secret'];
@@ -305,7 +305,7 @@ class JYMEngine
 		return true;
 	}
 	
-	public function response_contact($user, $accept = true, $message = '')
+	public function responseContact($user, $accept = true, $message = '')
 	{
 		if ($accept)
 		{
@@ -319,7 +319,7 @@ class JYMEngine
 		}
 		
 		//prepare url
-		$url = $this::URL_YM_BUDDYREQUEST;
+		$url = self::URL_YM_BUDDYREQUEST;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26'. $this->_token['access']['oauth_token_secret'];
@@ -359,10 +359,10 @@ class JYMEngine
 		return true;
 	}
 	
-	public function fetch_notification($seq = 0)
+	public function fetchNotification($seq = 0)
 	{		
 		//prepare url
-		$url = $this::URL_YM_NOTIFICATION;
+		$url = self::URL_YM_NOTIFICATION;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26'. $this->_token['access']['oauth_token_secret'];
@@ -393,10 +393,10 @@ class JYMEngine
 		return $js['responses'];
 	}
 	
-	public function fetch_long_notification($seq = 0)
+	public function fetchLongNotification($seq = 0)
 	{		
 		//prepare url
-		$url = $this::URL_YM_NOTIFICATION_LONG;
+		$url = self::URL_YM_NOTIFICATION_LONG;
 		$url .= '?oauth_consumer_key='. $this->_config['consumer_key'];		
 		$url .= '&oauth_nonce='. uniqid(rand());
 		$url .= '&oauth_signature='. $this->_config['secret_key']. '%26'. $this->_token['access']['oauth_token_secret'];
@@ -460,8 +460,36 @@ class JYMEngine
 		return $js['responses'];
 	}
 	
+	/**
+	 * Sets the request token manually.
+	 * @param string $requestToken Request token.
+	 */
+	public function setRequestToken($requestToken) {
+		if (stripos($requestToken, 'RequestToken') !== false)
+			$requestToken = trim(str_replace('RequestToken=', '', $requestToken));
+		$this->_token['request'] = $requestToken;
+	}
 	
+	public function getAccessToken() {
+		return $this->_token['access'];
+	}
 	
+	/**
+	 * Sets the access token manually.
+	 * @param string $accessToken Access token.
+	 */
+	public function setAccessToken($accessToken) {
+		$this->_token['access'] = $accessToken;
+	}
+	
+	public function getState() {
+		return array('token' => $this->_token, 'ym' => $this->_ym);
+	}
+	
+	public function setState($state) {
+		$this->_token = $state['token'];
+		$this->_ym = $state['ym'];
+	}
 	
 	/*
 	 * fetch url using curl
@@ -508,11 +536,11 @@ class JYMEngine
 		$status = curl_getinfo($s, CURLINFO_HTTP_CODE);
 		
 		curl_close($s);
-
+		
 		return $html;
 	}
 
-	public function get_error()
+	public function getError()
 	{
 		return $this->_error;
 	}
