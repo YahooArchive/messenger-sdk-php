@@ -1,10 +1,9 @@
 <?php
-
 /*
  *
  *Software Copyright License Agreement (BSD License)
  *
- *Copyright (c) 2010, Yahoo! Inc.
+ *Copyright (c) 2010-2014, Yahoo! Inc.
  *All rights reserved.
  *
  *Redistribution and use of this software in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -460,9 +459,6 @@ class JYMEngine
 		return $js['responses'];
 	}
 	
-	
-	
-	
 	/*
 	 * fetch url using curl
 	 */
@@ -518,5 +514,3 @@ class JYMEngine
 	}
 
 }
-
-?>
